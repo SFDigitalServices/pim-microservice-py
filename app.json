@@ -1,0 +1,19 @@
+{
+  "addons": [
+
+  ],
+  "buildpacks": [
+
+  ],
+  "env": {
+    "PLN_ARCGIS_PARCEL": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "name": "pim-microservice-py",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
