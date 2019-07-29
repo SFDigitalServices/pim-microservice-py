@@ -17,4 +17,4 @@ Start WSGI Server
 
 Open with cURL or web browser  
 > Retrieve Parcel Block / Lot  
-> $ curl http://127.0.0.1:8000/arcgis/parcels?addr=1650%20mission%20street
+> $ curl http://127.0.0.1:8000/arcgis/parcels?address=1650%20mission%20street

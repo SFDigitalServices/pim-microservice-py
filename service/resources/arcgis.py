@@ -31,8 +31,8 @@ class Arcgis():
             return
 
         response = {'message': 'parcels'}
-        if 'addr' in req.params:
-            addr = usaddress.tag(req.params['addr'])
+        if 'address' in req.params:
+            addr = usaddress.tag(req.params['address'])
             options = {'returnGeometry':'false', 'returnSuggestions':False}
             if 'returnSuggestions' in req.params and req.params['returnSuggestions'] == 'true':
                 options['returnSuggestions'] = True

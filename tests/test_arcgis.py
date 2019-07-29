@@ -37,7 +37,7 @@ def test_arcgis_parcels_empty(client):
     """Test arcgis parcels
         empty state
     """
-    response = client.simulate_get('/arcgis/parcels', params={'addr':'1234'})
+    response = client.simulate_get('/arcgis/parcels', params={'address':'1234'})
     assert response.status_code == 200
 
     content = json.loads(response.content)
@@ -49,7 +49,7 @@ def test_arcgis_parcels_basic(client):
     """Test arcgis parcels
         basic state
     """
-    response = client.simulate_get('/arcgis/parcels', params={'addr':'1650 mission street'})
+    response = client.simulate_get('/arcgis/parcels', params={'address':'1650 mission street'})
     assert response.status_code == 200
 
     content = json.loads(response.content)
@@ -66,7 +66,7 @@ def test_arcgis_parcels_basic_geometry(client):
     """
     response = client.simulate_get(
         '/arcgis/parcels',
-        params={'addr':'1650 mission street', 'returnGeometry':'true'})
+        params={'address':'1650 mission street', 'returnGeometry':'true'})
     assert response.status_code == 200
 
     content = json.loads(response.content)
@@ -83,7 +83,7 @@ def test_arcgis_parcels_basic_suggestion(client):
     """
     response = client.simulate_get(
                 '/arcgis/parcels',
-                params={'addr':'1650 mission street suite 400', 'returnSuggestions':'true'})
+                params={'address':'1650 mission street suite 400', 'returnSuggestions':'true'})
     assert response.status_code == 200
 
     content = json.loads(response.content)
@@ -99,7 +99,7 @@ def test_arcgis_parcels_basic_no_suggestion(client):
     """
     response = client.simulate_get(
                 '/arcgis/parcels',
-                params={'addr':'1650 mission street suite 1000'})
+                params={'address':'1650 mission street suite 1000'})
     assert response.status_code == 200
 
     content = json.loads(response.content)
@@ -113,7 +113,7 @@ def test_arcgis_parcels_suggest_range(client):
     """
     response = client.simulate_get(
                 '/arcgis/parcels',
-                params={'addr':'1651 mission street suite 1000', 'returnSuggestions':'true'})
+                params={'address':'1651 mission street suite 1000', 'returnSuggestions':'true'})
     assert response.status_code == 200
 
     content = json.loads(response.content)
