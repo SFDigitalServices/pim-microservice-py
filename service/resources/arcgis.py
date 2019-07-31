@@ -2,6 +2,7 @@
 import os
 import math
 import json
+import urllib
 import requests
 import falcon
 import jsend
@@ -46,7 +47,7 @@ class Arcgis():
     def pln_parcel(self, addr, options=None):
         """ get parcels from Planning ArcGIS """
         parcels = {}
-        url = os.environ.get('PLN_ARCGIS_PARCEL')+'query'
+        url = urllib.parse.urljoin(os.environ.get('PLN_ARCGIS_PARCEL')+'/', 'query')
         params = {'outFields':'blklot,ADDRESS', 'f':'json'}
         if options['returnGeometry']:
             params['returnGeometry'] = options['returnGeometry']
