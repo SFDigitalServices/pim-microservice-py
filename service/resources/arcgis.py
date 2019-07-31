@@ -34,7 +34,7 @@ class Arcgis():
         response = {'message': 'parcels'}
         if 'address' in req.params:
             addr = usaddress.tag(req.params['address'])
-            options = {'returnGeometry':'false', 'returnSuggestions':False}
+            options = {'returnGeometry':False, 'returnSuggestions':False}
             if 'returnSuggestions' in req.params and req.params['returnSuggestions'] == 'true':
                 options['returnSuggestions'] = True
             if 'returnGeometry' in req.params:
@@ -48,7 +48,7 @@ class Arcgis():
         """ get parcels from Planning ArcGIS """
         parcels = {}
         url = urllib.parse.urljoin(os.environ.get('PLN_ARCGIS_PARCEL')+'/', 'query')
-        params = {'outFields':'blklot,ADDRESS', 'f':'json'}
+        params = {'outFields':'blklot,ADDRESS', 'returnGeometry':'false', 'f':'json'}
         if options['returnGeometry']:
             params['returnGeometry'] = options['returnGeometry']
         if 'AddressNumber' in addr[0] and 'StreetName' in addr[0]:
