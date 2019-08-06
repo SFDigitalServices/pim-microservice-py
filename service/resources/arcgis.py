@@ -10,10 +10,12 @@ import usaddress
 
 class Arcgis():
     """Welcome class"""
-    def on_get(self, req, resp, name):
+    def on_get(self, req, resp, name=None):
         """on get request
         return Arcgis message
         """
+        if not name:
+            name = req.path.strip('/')
         if name in dir(self):
             return getattr(self, name)(req, resp)
         msg = {'message': 'Welcome'}

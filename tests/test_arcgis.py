@@ -139,3 +139,14 @@ def test_missing_env(client, monkeypatch):
     content = json.loads(response.content)
     assert jsend.is_error(content)
     assert 'PLN_ARCGIS_PARCEL' in content['message']
+
+def test_parcel_route(client):
+    """ Test parcel route"""
+    response1 = client.simulate_get('/arcgis/parcels', params={'address':'1650 mission street'})
+    assert response1.status_code == 200
+
+    response2 = client.simulate_get('/parcels', params={'address':'1650 mission street'})
+    assert response2.status_code == response1.status_code
+
+    assert response2.content == response1.content
+
