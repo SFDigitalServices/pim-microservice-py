@@ -17,6 +17,7 @@ def start_service():
     api = falcon.API()
     api.add_route('/welcome', Welcome())
     api.add_route('/arcgis/{name}', Arcgis())
+    api.add_route('/parcels', Arcgis())
     api.add_sink(default_error, '')
     return api
 
