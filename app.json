@@ -8,6 +8,9 @@
   "env": {
     "PLN_ARCGIS_PARCEL": {
       "required": true
+    },
+    "DATASF_ASR_TAX_ROLL": {
+      "required": true
     }
   },
   "formation": {
