@@ -149,4 +149,3 @@ def test_parcel_route(client):
     assert response2.status_code == response1.status_code
 
     assert response2.content == response1.content
-
