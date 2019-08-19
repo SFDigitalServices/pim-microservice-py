@@ -12,7 +12,7 @@ class Records():
         """
         if parcel:
             return self.on_get_records(req, resp, parcel)
-        msg = {'message': 'Records'}
+        msg = {'message': falcon.HTTP_200}
         resp.body = json.dumps(jsend.success(msg))
         resp.status = falcon.HTTP_200
 

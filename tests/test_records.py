@@ -3,23 +3,23 @@
 import json
 import pytest
 import jsend
-from falcon import testing
+import falcon
 import service.microservice
 
 @pytest.fixture()
 def client():
     """ client fixture """
-    return testing.TestClient(service.microservice.start_service())
+    return falcon.testing.TestClient(service.microservice.start_service())
 
-def test_records_welcome(client):
-    """Test records welcome"""
+def test_records_index_default(client):
+    """Test records index (default state) """
     response = client.simulate_get('/records/')
     assert response.status_code == 200
 
     content = json.loads(response.content)
 
     assert jsend.is_success(content)
-    assert content['data']['message'] == 'Records'
+    assert content['data']['message'] == falcon.HTTP_200
 
 def test_record_year_built(client):
     """ Test record year_built field
