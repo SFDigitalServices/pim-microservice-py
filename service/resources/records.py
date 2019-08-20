@@ -7,8 +7,10 @@ from ..models.record import Record
 class Records():
     """ Records class """
     def on_get(self, req, resp, parcel):
-        """ on get request
-        return Records data
+        """ Handles GET requests
+        If `parcel` number is passed, do a look up on data available on the parcel record
+
+        Parcel (Block/Lot) can be found online via https://sfplanninggis.org/pim/
         """
         if parcel:
             return self.on_get_records(req, resp, parcel)
@@ -17,7 +19,9 @@ class Records():
         resp.status = falcon.HTTP_200
 
     def on_get_records(self, req, resp, parcel):
-        """ on get records """
+        """ Look up record for `parcel`
+        multiple `fields` names can be passed using comma delimiter
+        """
         fields = []
         if 'fields' in req.params:
             fields_string = req.params['fields'] or None
