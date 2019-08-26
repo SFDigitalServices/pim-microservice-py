@@ -6,6 +6,7 @@ import sentry_sdk
 import falcon
 from .resources.welcome import Welcome
 from .resources.arcgis import Arcgis
+from .resources.records import Records
 
 def start_service():
     """Start this service
@@ -18,6 +19,7 @@ def start_service():
     api.add_route('/welcome', Welcome())
     api.add_route('/arcgis/{name}', Arcgis())
     api.add_route('/parcels', Arcgis())
+    api.add_route('/records/{parcel}', Records())
     api.add_sink(default_error, '')
     return api
 
