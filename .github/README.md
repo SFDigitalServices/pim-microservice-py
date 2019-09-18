@@ -16,7 +16,8 @@ Start WSGI Server
 > (pim-microservice-py)$ pipenv run gunicorn 'service.microservice:start_service()'
 
 Open with cURL or web browser  
-> Retrieve Parcel Block / Lot  
-> $ curl http://127.0.0.1:8000/arcgis/parcels?address=1650%20mission%20street
-> Retrieve Year Built and Building Area 
-> http://127.0.0.1:8000/records/[parcel id]?fields=year_built,building_area
+> Retrieve Parcel Block / Lot [(Documentation)](https://sfds-developer.apigee.io/docs/documentation/1/routes/parcels/get)  
+> $ curl http://127.0.0.1:8000/arcgis/parcels?address=1650%20mission%20street  
+  
+> Retrieve Year Built and Building Area [(Documentation)](https://sfds-developer.apigee.io/docs/documentation/1/routes/records/%7Bparcel%7D/get)  
+> $curl http://127.0.0.1:8000/records/[parcel id]?fields=year_built,building_area  
