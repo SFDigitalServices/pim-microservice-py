@@ -5,7 +5,6 @@ import pytest
 import jsend
 from falcon import testing
 import service.microservice
-from service.resources.arcgis import Arcgis
 
 @pytest.fixture()
 def client():
@@ -58,6 +57,8 @@ def test_arcgis_parcels_basic(client):
     assert len(content['data']['parcels']) == 1
     assert content['data']['parcels'][0]['attributes']['blklot'] == '3512008'
     assert content['data']['parcels'][0]['attributes']['ADDRESS'] == '1650 MISSION ST'
+    assert content['data']['parcels'][0]['attributes']['block_num'] == '3512'
+    assert content['data']['parcels'][0]['attributes']['lot_num'] == '008'
     assert 'geometry' not in content['data']['parcels'][0]
 
 def test_arcgis_parcels_basic_geometry(client):
@@ -123,12 +124,6 @@ def test_arcgis_parcels_suggest_range(client):
     for parcel in content['data']['parcels']:
         assert parcel['attributes']['blklot']
         assert parcel['attributes']['ADDRESS']
-
-def test_query_error():
-    """ Test query error state """
-    arcgis = Arcgis()
-    response = arcgis.query('', {})
-    assert response is None
 
 def test_missing_env(client, monkeypatch):
     """ Test missing env variable(s) """
