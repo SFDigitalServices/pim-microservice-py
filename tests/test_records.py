@@ -24,12 +24,13 @@ def test_records_index_default(client):
 def test_record_year_built(client):
     """ Test record year_built field
     """
-    response = client.simulate_get('/records/3512008', params={'fields':'year_built'})
+    parcel = '1279021'
+    response = client.simulate_get('/records/'+parcel, params={'fields':'year_built'})
     assert response.status_code == 200
 
     content = json.loads(response.content)
     assert jsend.is_success(content)
-    assert content['data']['parcel'] == '3512008'
+    assert content['data']['parcel'] == parcel
     assert 'year_built' in content['data']
 
 def test_record_building_area(client):
@@ -63,4 +64,5 @@ def test_record_empty(client):
     content = json.loads(response.content)
     assert jsend.is_success(content)
     assert content['data']['parcel'] == '123'
-    assert 'year_built' not in content['data']
+    assert 'year_built' in content['data']
+    assert not content['data']['year_built']
