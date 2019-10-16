@@ -15,6 +15,7 @@ sentry-sdk = "*"
 pytest = "*"
 pytest-cov = "*"
 usaddress = "*"
+sf-arcgis-sdk = {git = "https://github.com/SFDigitalServices/sf-arcgis-sdk-py.git",ref = "master"}
 
 [requires]
 python_version = "3.7"
