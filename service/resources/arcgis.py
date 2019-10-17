@@ -33,11 +33,15 @@ class Arcgis():
         response = {'message': 'parcels'}
         if 'address' in req.params:
             address = req.params['address']
-            options = {'returnGeometry':False, 'returnSuggestions':False}
+            options = {
+                'returnGeometry':False, 'returnSuggestions':False,
+                'outFields':'blklot,block_num,lot_num,ADDRESS'}
             if 'returnSuggestions' in req.params and req.params['returnSuggestions'] == 'true':
                 options['returnSuggestions'] = True
             if 'returnGeometry' in req.params:
                 options['returnGeometry'] = req.params['returnGeometry']
+            if 'outFields' in req.params:
+                options['outFields'] = req.params['outFields']
 
             sfarcgis = SfArcgis()
             sfarcgis.set_layer('parcel', os.environ.get('PLN_ARCGIS_PARCEL'))

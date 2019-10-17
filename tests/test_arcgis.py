@@ -67,15 +67,20 @@ def test_arcgis_parcels_basic_geometry(client):
     """
     response = client.simulate_get(
         '/arcgis/parcels',
-        params={'address':'1650 mission street', 'returnGeometry':'true'})
+        params={'address':'1650 mission street', 'returnGeometry':'true',
+                'outFields':'blklot,ADDRESS'})
     assert response.status_code == 200
 
     content = json.loads(response.content)
 
     assert jsend.is_success(content)
     assert len(content['data']['parcels']) == 1
+    assert 'blklot' in content['data']['parcels'][0]['attributes']
     assert content['data']['parcels'][0]['attributes']['blklot'] == '3512008'
+    assert 'ADDRESS' in content['data']['parcels'][0]['attributes']
     assert content['data']['parcels'][0]['attributes']['ADDRESS'] == '1650 MISSION ST'
+    assert 'block_num' not in content['data']['parcels'][0]['attributes']
+    assert 'lot_num' not in content['data']['parcels'][0]['attributes']
     assert isinstance(content['data']['parcels'][0]['geometry']['rings'], list)
 
 def test_arcgis_parcels_basic_suggestion(client):
