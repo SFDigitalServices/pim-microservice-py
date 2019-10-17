@@ -10,9 +10,9 @@ class Record():
     # possible parcel field options
     field_parcel_options = ['blklot', 'block_num', 'lot_num', 'address']
 
-    def __init__(self, parcel):
+    def __init__(self, parcel_num):
         self.data = {}
-        self.parcel = parcel
+        self.parcel_num = parcel_num
 
     def get(self, fields_array):
         """ Get method """
@@ -34,7 +34,7 @@ class Record():
             sfarcgis = SfArcgis()
             sfarcgis.set_layer('parcel', os.environ.get('PLN_ARCGIS_PARCEL'))
             options = {'outFields' : ','.join(field_parcel_request)}
-            parcels = sfarcgis.get_fields_by_parcel(self.parcel, options)
+            parcels = sfarcgis.get_fields_by_parcel(self.parcel_num, options)
             if parcels:
                 parcels = [(self.normalize_parcel_field_names(p)) for p in parcels]
                 self.data['parcels'] = parcels
@@ -45,7 +45,7 @@ class Record():
         """ Get data from Assessor Property Tax Roll"""
         response = DataSF().filter(
             os.environ.get('DATASF_ASR_TAX_ROLL'),
-            {'parcel_number': self.parcel, '$order':'closed_roll_year DESC'})
+            {'parcel_number': self.parcel_num, '$order':'closed_roll_year DESC'})
         if response and isinstance(response, list):
             return response[0]
         else:
