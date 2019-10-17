@@ -30,7 +30,6 @@ def test_record_year_built(client):
 
     content = json.loads(response.content)
     assert jsend.is_success(content)
-    assert content['data']['parcel'] == parcel
     assert 'year_built' in content['data']
 
 def test_record_building_area(client):
@@ -41,7 +40,6 @@ def test_record_building_area(client):
 
     content = json.loads(response.content)
     assert jsend.is_success(content)
-    assert content['data']['parcel'] == '3512008'
     assert 'building_area' in content['data']
 
 def test_record_combo(client):
@@ -51,7 +49,6 @@ def test_record_combo(client):
 
     content = json.loads(response.content)
     assert jsend.is_success(content)
-    assert content['data']['parcel'] == '3512008'
     assert 'year_built' in content['data']
     assert 'building_area' in content['data']
 
@@ -63,6 +60,21 @@ def test_record_empty(client):
 
     content = json.loads(response.content)
     assert jsend.is_success(content)
-    assert content['data']['parcel'] == '123'
     assert 'year_built' in content['data']
     assert not content['data']['year_built']
+
+def test_record_parcels(client):
+    """ Test record parcels
+    """
+    response = client.simulate_get(
+                '/records/3512008',
+                params={'fields':'building_area,blklot,address'})
+    assert response.status_code == 200
+
+    content = json.loads(response.content)
+    assert jsend.is_success(content)
+    assert 'parcels' in content['data']
+    assert isinstance(content['data']['parcels'], list)
+    assert content['data']['parcels'][0]['attributes']['blklot'] == '3512008'
+    assert 'ADDRESS' not in content['data']['parcels'][0]['attributes']
+    assert 'address' in content['data']['parcels'][0]['attributes']
