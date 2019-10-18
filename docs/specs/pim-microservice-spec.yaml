@@ -1,147 +1,180 @@
----
-swagger: "2.0"
+swagger: '2.0'
+
 info:
-  version: "1.0.0"
-  title: "SFDS PIM MICROSERVICE v1"
-  description: "This microservice interacts with various data sources used by Planning\
-    \ Information Map (PIM)\n"
-host: "sfds-prod.apigee.net"
-basePath: "/v1/PIM"
+  version: "1.1.0"
+  title: SFDS PIM MICROSERVICE v1
+  description: |
+    This microservice interacts with various data sources used by Planning Information Map (PIM)
+
 schemes:
-- "https"
+  - https
+
 paths:
   /parcels:
     get:
-      description: "Gets `Parcels` objects.\n"
+      description: |
+        Gets `Parcels` objects.
       parameters:
-      - name: "address"
-        in: "query"
-        description: "Address to be lookup"
-        required: true
-        type: "string"
-      - name: "returnGeometry"
-        in: "query"
-        description: "Returns Geometry as part of response"
-        type: "string"
-        enum:
-        - "true"
-        - "false"
-        default: "false"
-      - name: "returnSuggestions"
-        in: "query"
-        description: "Returns close match suggestions as part of response if exact\
-          \ match not found"
-        type: "string"
-        enum:
-        - "true"
-        - "false"
-        default: "false"
-      - name: "apikey"
-        in: "query"
-        description: "API key"
-        type: "string"
-        required: true
+        - name: address
+          in: query
+          description: Address to be lookup
+          required: true
+          type: string
+        - name: returnGeometry
+          in: query
+          description: Returns Geometry as part of response
+          type: string
+          enum: ["true", "false"]
+          default: "false"
+        - name: returnSuggestions
+          in: query
+          description: Returns close match suggestions as part of response if exact match not found
+          type: string
+          enum: ["true", "false"]
+          default: "false"
+        - name: apikey
+          in: query
+          description: API key
+          type: string
+          required: true
+          
       responses:
         200:
-          description: "Successful response"
+          description: Successful response
           schema:
-            type: "object"
+            type: object
             properties:
               status:
-                type: "string"
+                type: string
                 example: "success"
               data:
-                type: "object"
+                type: object
                 properties:
                   parcel:
-                    type: "array"
+                    type: array
                     items:
-                      title: "Parcel"
-                      type: "object"
+                      title: Parcel
+                      type: object
                       properties:
                         attributes:
-                          type: "object"
+                          type: object
                           properties:
                             blklot:
-                              type: "string"
+                              type: string
                               example: "3512008"
+                            block_num": 
+                              type: string
+                              example: "3512"
+                            lot_num": 
+                              type: string
+                              example: "008"
                             ADDRESS:
-                              type: "string"
+                              type: string
                               example: "1650 MISSION ST"
                         geometry:
-                          type: "object"
+                          type: object
                           properties:
                             rings:
-                              type: "array"
+                              type: array
                               items:
-                                title: "geometry rings"
-                              example:
-                              - - - -122.41927962299997
-                                  - 37.77211259500007
-                                - - -122.419347889
-                                  - 37.77199256500006
-                                - - -122.41941350599996
-                                  - 37.77187160700004
-                                - - -122.419476455
-                                  - 37.771749760000034
-                                - - -122.41953671299996
-                                  - 37.771627058000036
-                                - - -122.41959426499994
-                                  - 37.77150354100007
-                                - - -122.41966024699997
-                                  - 37.77135307200007
-                                - - -122.42014676399998
-                                  - 37.77150390700007
-                                - - -122.42016926899998
-                                  - 37.77174893000006
-                                - - -122.41958935299999
-                                  - 37.77220848300004
-                                - - -122.41927962299997
-                                  - 37.77211259500007
+                                title: geometry rings
+                              example: [[[-122.41927962299997, 37.77211259500007], [-122.419347889, 37.77199256500006], [-122.41941350599996, 37.77187160700004], [-122.419476455, 37.771749760000034], [-122.41953671299996, 37.771627058000036], [-122.41959426499994, 37.77150354100007], [-122.41966024699997, 37.77135307200007], [-122.42014676399998, 37.77150390700007], [-122.42016926899998, 37.77174893000006], [-122.41958935299999, 37.77220848300004], [-122.41927962299997, 37.77211259500007]]]
   /records/{parcel}:
     get:
-      description: "Lookup information in parcel records\n"
+      description: |
+        Lookup information in parcel records
       parameters:
-      - name: "parcel"
-        in: "path"
-        required: true
-        type: "string"
-        description: "Parcel (Block/Lot) number can be found online via https://sfplanninggis.org/pim/\
-          \ or via API endpoint `/parcels`"
-      - name: "fields"
-        in: "query"
-        description: "data fields to be lookup (e.g. year_built,building_area)"
-        type: "array"
-        items:
-          type: "string"
-        collectionFormat: "csv"
-        required: true
-      - name: "apikey"
-        in: "query"
-        description: "API key"
-        type: "string"
-        required: true
+        - name: parcel
+          in: path
+          required: true
+          type: string
+          description: Parcel (Block/Lot) number can be found online via https://sfplanninggis.org/pim/ or via API endpoint `/parcels`
+        # fields=year_built,building_area,address,blklot,block_num,lot_num
+        - name: fields
+          in: query
+          description: data fields to be lookup (e.g. year_built,building_area,address,blklot,block_num,lot_num)
+          type: array
+          items:
+            type: string
+          collectionFormat: csv
+          required: true
+        - name: apikey
+          in: query
+          description: API key
+          type: string
+          required: true
       responses:
         200:
-          description: "Successful response"
+          description: Successful response
           schema:
-            type: "object"
+            type: object
             properties:
               status:
-                type: "string"
+                type: string
                 example: "success"
               data:
-                type: "object"
+                type: object
                 properties:
-                  parcel:
-                    type: "string"
-                    description: "Parcel number"
-                    example: "3512008"
+                  building_area:
+                    type: string
+                    description: "Building Area in square feet"
+                    example: "216712"
                   year_built:
-                    type: "string"
+                    type: string
                     description: "Year Built"
                     example: "1962"
-                  building_area:
-                    type: "string"
-                    description: "Building Area in sqare feett"
-                    example: "216712"
+                  parcels: 
+                    type: array
+                    items:
+                      title: parcel fields
+                      type: object
+                      properties:
+                        attributes:
+                          type: object
+                          properties:
+                            blklot:
+                              type: string
+                              example: "3512008"
+                            block_num": 
+                              type: string
+                              example: "3512"
+                            lot_num": 
+                              type: string
+                              example: "008"
+                            address:
+                              type: string
+                              example: "1650 MISSION ST"
+                    example: [
+                              {
+                                "attributes": {
+                                  "blklot": "3512008",
+                                  "lot_num": "008",
+                                  "block_num": "3512",
+                                  "address": "77 OTIS ST"
+                                }
+                              },
+                              {
+                                "attributes": {
+                                  "blklot": "3512008",
+                                  "lot_num": "008",
+                                  "block_num": "3512",
+                                  "address": "1650 MISSION ST"
+                                }
+                              },
+                              {
+                                "attributes": {
+                                  "blklot": "3512008",
+                                  "lot_num": "008",
+                                  "block_num": "3512",
+                                  "address": "1640 MISSION ST"
+                                }
+                              },
+                              {
+                                "attributes": {
+                                  "blklot": "3512008",
+                                  "lot_num": "008",
+                                  "block_num": "3512",
+                                  "address": "1656 MISSION ST"
+                                }
+                              }
+                            ]
