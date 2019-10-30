@@ -16,9 +16,9 @@ pytest = "*"
 pytest-cov = "*"
 pre-commit = "*"
 pylint = "*"
-
 usaddress = "*"
 sf-arcgis-sdk = {git = "https://github.com/SFDigitalServices/sf-arcgis-sdk-py.git",ref = "master"}
+sodapy = "*"
 
 [requires]
 python_version = "3.7"

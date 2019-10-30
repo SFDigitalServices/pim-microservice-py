@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "dc0498acd0059f09e90d6938638d85e27f969a3d7606e6dbdc51b6d8efe28add"
+            "sha256": "e9b1068c57f341bbb31b5463497cc88f09ff4e5b1c3a2e1043fa210a497c1c9d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -375,6 +375,14 @@
                 "sha256:d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"
             ],
             "version": "==1.12"
+        },
+        "sodapy": {
+            "hashes": [
+                "sha256:1f83161287dd9fd2d53a5649757ba895cf38ec49e41f81d0ae13915b0ae3556c",
+                "sha256:4fc2d7a37a1f5bece0635edadfdeef6bde7d89d7f9e551de953318a066cf4b6f"
+            ],
+            "index": "pypi",
+            "version": "==1.5.5"
         },
         "toml": {
             "hashes": [
