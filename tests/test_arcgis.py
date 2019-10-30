@@ -134,7 +134,7 @@ def test_missing_env(client, monkeypatch):
     """ Test missing env variable(s) """
     monkeypatch.setenv('PLN_ARCGIS_PARCEL', '')
     response = client.simulate_get('/arcgis/parcels')
-    assert response.status_code is not 200
+    assert response.status_code != 200
 
     content = json.loads(response.content)
     assert jsend.is_error(content)

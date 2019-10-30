@@ -14,10 +14,11 @@ class Arcgis():
         if not name:
             name = req.path.strip('/')
         if name in dir(self):
-            return getattr(self, name)(req, resp)
-        msg = {'message': 'Welcome'}
-        resp.body = json.dumps(jsend.success(msg))
-        resp.status = falcon.HTTP_200
+            getattr(self, name)(req, resp)
+        else:
+            msg = {'message': 'Welcome'}
+            resp.body = json.dumps(jsend.success(msg))
+            resp.status = falcon.HTTP_200
 
     def parcels(self, req, resp):
         """ get parcels """

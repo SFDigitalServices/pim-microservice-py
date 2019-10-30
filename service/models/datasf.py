@@ -1,6 +1,7 @@
 """DataSF model"""
 import requests
 
+#pylint: disable=too-few-public-methods
 class DataSF():
     """DataSF model class"""
     @staticmethod
