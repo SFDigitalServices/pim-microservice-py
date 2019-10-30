@@ -13,11 +13,13 @@ class Records():
         Parcel (Block/Lot) can be found online via https://sfplanninggis.org/pim/
         """
         if parcel:
-            return self.on_get_records(req, resp, parcel)
-        msg = {'message': falcon.HTTP_200}
-        resp.body = json.dumps(jsend.success(msg))
-        resp.status = falcon.HTTP_200
+            self.on_get_records(req, resp, parcel)
+        else:
+            msg = {'message': falcon.HTTP_200}
+            resp.body = json.dumps(jsend.success(msg))
+            resp.status = falcon.HTTP_200
 
+    #pylint: disable=no-self-use
     def on_get_records(self, req, resp, parcel):
         """ Look up record for `parcel`
         multiple `fields` names can be passed using comma delimiter

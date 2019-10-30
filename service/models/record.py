@@ -48,8 +48,7 @@ class Record():
             {'parcel_number': self.parcel_num, '$order':'closed_roll_year DESC'})
         if response and isinstance(response, list):
             return response[0]
-        else:
-            return {}
+        return {}
 
     @staticmethod
     def normalize_parcel_field_names(parcel_object):
