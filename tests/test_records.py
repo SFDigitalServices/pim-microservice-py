@@ -44,13 +44,17 @@ def test_record_building_area(client):
 
 def test_record_combo(client):
     """ Test record retrieval for multiple fields """
-    response = client.simulate_get('/records/3512008', params={'fields':'year_built,building_area'})
+    response = client.simulate_get(
+        '/records/3512008',
+        params={'fields':'year_built,building_area,ceqacode'}
+        )
     assert response.status_code == 200
 
     content = json.loads(response.content)
     assert jsend.is_success(content)
     assert 'year_built' in content['data']
     assert 'building_area' in content['data']
+    assert 'ceqacode' in content['data']
 
 def test_record_empty(client):
     """ Test empty record
