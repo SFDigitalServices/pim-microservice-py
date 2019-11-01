@@ -30,7 +30,7 @@ def test_record_year_built(client):
 
     content = json.loads(response.content)
     assert jsend.is_success(content)
-    assert 'year_built' in content['data']
+    assert content['data']['year_built']
 
 def test_record_building_area(client):
     """ Test record building_area field
@@ -41,6 +41,27 @@ def test_record_building_area(client):
     content = json.loads(response.content)
     assert jsend.is_success(content)
     assert 'building_area' in content['data']
+
+def test_record_ceqacode(client):
+    """ Test record ceqacode field
+    """
+    response = client.simulate_get('/records/1279021', params={'fields':'ceqacode'})
+    assert response.status_code == 200
+
+    content = json.loads(response.content)
+    assert jsend.is_success(content)
+    assert content['data']['ceqacode']
+
+
+def test_record_article_11(client):
+    """ Test record article_11 field
+    """
+    response = client.simulate_get('/records/0350004', params={'fields':'article_11'})
+    assert response.status_code == 200
+
+    content = json.loads(response.content)
+    assert jsend.is_success(content)
+    assert content['data']['article_11']
 
 def test_record_combo(client):
     """ Test record retrieval for multiple fields """
