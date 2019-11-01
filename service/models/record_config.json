@@ -1,0 +1,32 @@
+{
+    "datasf_fields" : {
+        "year_built" : {
+            "source": "datasf_asr_tax_roll",
+            "field": "year_property_built"
+            },
+        "building_area" : {
+            "source": "datasf_asr_tax_roll",
+            "field": "property_area"
+            },
+        "ceqacode" : {
+            "source": "datasf_historic_ceqa",
+            "field": "ceqacode"
+            },
+        "article_11" : {
+            "source": "datasf_historic_11",
+            "field": "individuals_article_11_article11"
+            }
+    },
+    "datasf_sources" : {
+        "datasf_asr_tax_roll" : {
+            "parcel_field_name": "parcel_number",
+            "order":"closed_roll_year DESC"
+            },
+        "datasf_historic_ceqa" : {
+            "parcel_field_name": "APN"
+            },
+        "datasf_historic_11" : {
+            "parcel_field_name": "individuals_article_11_apn"
+            }
+    }
+}

@@ -1,25 +1,14 @@
 """Record model"""
 import os
+import json
 from sodapy import Socrata
 from sf_arcgis_sdk.sf_arcgis import SfArcgis
 
 class Record():
     """Record class"""
     # possible field options from DataSF
-    field_datasf_options = {
-        'year_built' : {'source': 'datasf_asr_tax_roll', 'field': 'year_property_built'},
-        'building_area' : {'source': 'datasf_asr_tax_roll', 'field': 'property_area'},
-        'ceqacode' : {'source': 'datasf_historic_ceqa', 'field': 'ceqacode'}
-    }
-    datasf_source_opts = {
-        'datasf_asr_tax_roll' : {
-            'parcel_field_name': 'parcel_number',
-            'order':'closed_roll_year DESC'
-            },
-        'datasf_historic_ceqa' : {
-            'parcel_field_name': 'APN'
-            }
-    }
+    datasf_field_opts = {}
+    datasf_source_opts = {}
     # possible parcel field options
     field_parcel_options = ['blklot', 'block_num', 'lot_num', 'address']
 
@@ -29,17 +18,23 @@ class Record():
         self.parcel_num = parcel_num
         # data object associated with this record
         self.data = {}
+        # load config
+        config_file_path = os.path.dirname(os.path.realpath(__file__))+'/record_config.json'
+        with open(config_file_path, 'r') as config_file:
+            config_data = json.load(config_file)
+            self.datasf_field_opts = config_data['datasf_fields']
+            self.datasf_source_opts = config_data['datasf_sources']
 
     def get(self, fields_array):
         """ Get method """
 
         # Retrieving for DataSF fields
         datasf_sources = {}
-        for field in set(self.field_datasf_options.keys()) & set(fields_array):
+        for field in set(self.datasf_field_opts.keys()) & set(fields_array):
             # setting default null values for possible field options
             self.data[field] = None
             # build DataSF sources array
-            field_opt = self.field_datasf_options[field]
+            field_opt = self.datasf_field_opts[field]
             if field_opt['source'] not in datasf_sources.keys():
                 datasf_sources[field_opt['source']] = {}
             datasf_sources[field_opt['source']][field] = field_opt
