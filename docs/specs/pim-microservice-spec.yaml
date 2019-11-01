@@ -1,7 +1,7 @@
 swagger: '2.0'
 
 info:
-  version: "1.1.0"
+  version: "1.2.0"
   title: SFDS PIM MICROSERVICE v1
   description: |
     This microservice interacts with various data sources used by Planning Information Map (PIM)
@@ -62,10 +62,10 @@ paths:
                             blklot:
                               type: string
                               example: "3512008"
-                            block_num": 
+                            block_num: 
                               type: string
                               example: "3512"
-                            lot_num": 
+                            lot_num: 
                               type: string
                               example: "008"
                             ADDRESS:
@@ -89,10 +89,10 @@ paths:
           required: true
           type: string
           description: Parcel (Block/Lot) number can be found online via https://sfplanninggis.org/pim/ or via API endpoint `/parcels`
-        # fields=year_built,building_area,address,blklot,block_num,lot_num
         - name: fields
           in: query
-          description: data fields to be lookup (e.g. year_built,building_area,address,blklot,block_num,lot_num)
+          description: |
+            data fields to be lookup (e.g. year_built,building_area,address,blklot,block_num,lot_num,ceqacode,article_11)
           type: array
           items:
             type: string
@@ -123,6 +123,14 @@ paths:
                     type: string
                     description: "Year Built"
                     example: "1962"
+                  ceqacode:
+                    type: string
+                    description: "Historic Resources CEQA Code"
+                    example: "B"
+                  article_11:
+                    type: string
+                    description: "Parcels rated under Article 11 of the Planning Code (Historic Preservation)."
+                    example: "I"
                   parcels: 
                     type: array
                     items:
@@ -135,10 +143,10 @@ paths:
                             blklot:
                               type: string
                               example: "3512008"
-                            block_num": 
+                            block_num: 
                               type: string
                               example: "3512"
-                            lot_num": 
+                            lot_num: 
                               type: string
                               example: "008"
                             address:
@@ -178,3 +186,6 @@ paths:
                                 }
                               }
                             ]
+    
+                        
+          
