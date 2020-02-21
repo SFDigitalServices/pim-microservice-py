@@ -3,6 +3,7 @@ import os
 import json
 import falcon
 import jsend
+import sentry_sdk
 from sf_arcgis_sdk.sf_arcgis import SfArcgis
 
 class Arcgis():
@@ -48,6 +49,18 @@ class Arcgis():
             sfarcgis.set_layer('parcel', os.environ.get('PLN_ARCGIS_PARCEL'))
             parcels = sfarcgis.get_fields_by_address(address, options)
             response = {'parcels': parcels}
+
+            with sentry_sdk.configure_scope() as scope:
+                scope.set_extra(
+                    'arcgis.parcels',
+                    {'address':address, 'options':options, 'response':parcels})
+
+            blank_response_msg = ""
+            if not parcels:
+                blank_response_msg = "(blank)"
+
+            sentry_sdk.capture_message(('parcel response '+blank_response_msg).strip(), 'info')
+
         resp.body = json.dumps(jsend.success(response))
         resp.status = falcon.HTTP_200
 
