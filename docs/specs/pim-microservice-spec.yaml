@@ -88,15 +88,13 @@ paths:
           in: path
           required: true
           type: string
-          description: Parcel (Block/Lot) number can be found online via https://sfplanninggis.org/pim/ or via API endpoint `/parcels`
+          description: "Parcel (Block/Lot) number can be found online via https://sfplanninggis.org/pim/ or via API endpoint `/parcels`"
         - name: fields
           in: query
           description: |
-            data fields to be lookup (e.g. year_built,building_area,address,blklot,block_num,lot_num,ceqacode,article_11)
-          type: array
-          items:
-            type: string
-          collectionFormat: csv
+            Comma-delimited fields to lookup.  
+            Valid values: year_built,building_area,address,blklot,block_num,lot_num,ceqacode,article_11
+          type: string
           required: true
         - name: apikey
           in: query
